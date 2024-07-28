@@ -7,7 +7,7 @@
 	>
 		<h1>frfr</h1>
 		<div class="outline-double outline-red-700"></div>
-		<div class="outline-double outline-blue-700"></div>
+		<div class="outline-double outline-blue-600"></div>
 	</div>
 </template>
 
