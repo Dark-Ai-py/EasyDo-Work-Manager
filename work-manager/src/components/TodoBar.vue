@@ -1,5 +1,36 @@
 <script setup>
-	const { todoItems } = defineProps(["items"]);
+	import { computed } from "vue";
+	const props = defineProps({
+		items: Array,
+		warning: Number,
+		dateType: String,
+	});
+
+	const todoItems = computed(() => props.items);
+	const warningAmount = computed(() => props.warning);
+	const dateType = computed(() => props.dateType);
+
+	function GetBadgeColor(dueDate) {
+		const currentDate = Date.now();
+		const cleanDueDate = Date.parse(dueDate);
+
+		let diffDate = currentDate - cleanDueDate;
+		let diffDays = Math.round((diffDate / 86400000) * -1);
+
+		// Return the result
+		if (diffDays <= 0) {
+			console.log(diffDays);
+			return "badge-secondary";
+		} else if (diffDays <= warningAmount.value) {
+			console.log(diffDays);
+			return "badge-accent";
+		} else {
+			console.log(warningAmount.value);
+
+			console.log(diffDays);
+			return "badge-outline";
+		}
+	}
 </script>
 
 <template>
@@ -12,18 +43,22 @@
 			class="outline-double outline-blue-600 h-fit mb-8 mr-4 ml-4"
 			style="height: 100%"
 		>
-			<div class="card bg-base-100 w-full shadow-xl mb-2">
+			<div
+				class="card bg-base-100 w-full shadow-xl mb-2"
+				v-for="(todo, index) in todoItems"
+			>
 				<div class="card-body">
-					<h3 class="card-title truncate">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat
-						culpa voluptatum, qui magni autem officiis at! Libero illum
-						aspernatur labore, odit eius obcaecati voluptas alias vel eveniet
-						aperiam cumque molestias.
-					</h3>
-					<h3 class="card-title truncate mr-2">...</h3>
+					<div class="flex flex-row">
+						<h3 class="card-title truncate">
+							{{ todo.title }}
+						</h3>
+						<h3 class="card-title mr-2">...</h3>
+					</div>
 					<div class="card-actions justify-end">
-						<div class="badge badge-outline">Fashion</div>
-						<div class="badge badge-outline">Products</div>
+						<div class="badge" :class="GetBadgeColor(todo.dueDate)">
+							{{ todo.dueDate }}
+						</div>
+						<div class="badge badge-accent">Products</div>
 						<button class="btn btn-primary ml-auto">View</button>
 					</div>
 				</div>
