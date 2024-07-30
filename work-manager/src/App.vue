@@ -7,10 +7,12 @@
 				//UTC TIME
 				dueDate: "Sun, 04 Aug 2024 05:00:00 GMT",
 				title: "Finish ticket 624a3c",
+				importance: "3",
 			},
 			{
 				dueDate: "Fri, 08 Apr 2011 05:00:00 GMT",
 				title: "Finish ticke... SAAAVEEE MMMEE---",
+				importance: "2",
 			},
 		];
 	};

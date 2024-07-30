@@ -9,8 +9,14 @@
 	const todoItems = computed(() => props.items);
 	const warningAmount = computed(() => props.warning);
 	const dateType = computed(() => props.dateType);
+	const importanceText = { 1: "Low", 2: "Medium", 3: "High" };
+	const importanceColor = {
+		1: "badge-success",
+		2: "badge-warning",
+		3: "badge-error",
+	};
 
-	function GetCleanDate(date) {
+	function getCleanDate(date) {
 		const dateObject = new Date(date);
 		console.log(dateObject);
 
@@ -42,7 +48,7 @@
 		return cleanDate;
 	}
 
-	function GetDueDateColor(dueDate) {
+	function getDueDateColor(dueDate) {
 		const currentDate = Date.now();
 		const cleanDueDate = Date.parse(dueDate);
 
@@ -52,15 +58,22 @@
 		// Return the result
 		if (diffDays <= 0) {
 			console.log(diffDays);
-			return "badge-secondary";
+			return "badge-error";
 		} else if (diffDays <= warningAmount.value) {
 			console.log(diffDays);
-			return "badge-accent";
+			return "badge-warning";
 		} else {
 			console.log(warningAmount.value);
 
 			console.log(diffDays);
 			return "badge-outline";
+		}
+	}
+	function getImportance(importance, isText) {
+		if (isText == true) {
+			return importanceText[importance];
+		} else if (isText == false) {
+			return importanceColor[importance];
 		}
 	}
 </script>
@@ -70,11 +83,8 @@
 		class="flex justify-center rounded-2xl bg-neutral max-w-96 flex-col"
 		style="height: 90vh"
 	>
-		<div class="outline-double outline-red-700 h-20 mb-8 mr-4 ml-4"></div>
-		<div
-			class="outline-double outline-blue-600 h-fit mb-8 mr-4 ml-4"
-			style="height: 100%"
-		>
+		<div class="h-20 mb-8 mr-4 ml-4"></div>
+		<div class="h-fit mb-8 mr-4 ml-4" style="height: 100%">
 			<div
 				class="card bg-base-100 w-full shadow-xl mb-2"
 				v-for="(todo, index) in todoItems"
@@ -87,10 +97,14 @@
 						<h3 class="card-title mr-2">...</h3>
 					</div>
 					<div class="card-actions justify-end">
-						<div class="badge" :class="GetDueDateColor(todo.dueDate)">
-							{{ GetCleanDate(todo.dueDate) }}
+						<div class="flex flex-col">
+							<div class="badge mb-1" :class="getDueDateColor(todo.dueDate)">
+								{{ getCleanDate(todo.dueDate) }}
+							</div>
+							<div class="badge" :class="getImportance(todo.importance, false)">
+								{{ getImportance(todo.importance, true) }}
+							</div>
 						</div>
-						<div class="badge badge-accent">Products</div>
 						<button class="btn btn-primary ml-auto">View</button>
 					</div>
 				</div>
