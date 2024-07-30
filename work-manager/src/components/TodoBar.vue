@@ -10,7 +10,39 @@
 	const warningAmount = computed(() => props.warning);
 	const dateType = computed(() => props.dateType);
 
-	function GetBadgeColor(dueDate) {
+	function GetCleanDate(date) {
+		const dateObject = new Date(date);
+		console.log(dateObject);
+
+		const day = dateObject.getDate();
+		const month = dateObject.getMonth() + 1;
+		const year = dateObject.getFullYear();
+
+		console.log(day);
+
+		let cleanDate = "";
+		let arrayDateType = [...dateType.value];
+		console.log(arrayDateType);
+
+		arrayDateType.forEach((e) => {
+			switch (e) {
+				case "D":
+					cleanDate = cleanDate + day;
+					break;
+				case "M":
+					cleanDate = cleanDate + month;
+					break;
+				case "Y":
+					cleanDate = cleanDate + year;
+					break;
+				default:
+					cleanDate = cleanDate + "/";
+			}
+		});
+		return cleanDate;
+	}
+
+	function GetDueDateColor(dueDate) {
 		const currentDate = Date.now();
 		const cleanDueDate = Date.parse(dueDate);
 
@@ -55,8 +87,8 @@
 						<h3 class="card-title mr-2">...</h3>
 					</div>
 					<div class="card-actions justify-end">
-						<div class="badge" :class="GetBadgeColor(todo.dueDate)">
-							{{ todo.dueDate }}
+						<div class="badge" :class="GetDueDateColor(todo.dueDate)">
+							{{ GetCleanDate(todo.dueDate) }}
 						</div>
 						<div class="badge badge-accent">Products</div>
 						<button class="btn btn-primary ml-auto">View</button>

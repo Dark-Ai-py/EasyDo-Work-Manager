@@ -18,7 +18,7 @@
 
 <template>
 	<!-- "items","warning","dateType", -->
-	<TodoBar :items="items()" :warning="10" date-type="YEAR,MONTH,DAY" />
+	<TodoBar :items="items()" :warning="10" date-type="M-D-Y" />
 </template>
 
 <style scoped></style>
