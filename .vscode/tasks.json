@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"path": "work-manager",
+			"problemMatcher": [],
+			"label": "npm: dev - work-manager",
+			"detail": "vite",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
