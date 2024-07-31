@@ -84,7 +84,10 @@
 		style="height: 90vh"
 	>
 		<div class="h-20 mb-8 mr-4 ml-4"></div>
-		<div class="h-fit mb-8 mr-4 ml-4" style="height: 100%">
+		<div
+			class="h-fit mb-8 mr-4 ml-4"
+			style="height: 100%"
+		>
 			<div
 				class="card bg-base-100 w-full shadow-xl mb-2"
 				v-for="(todo, index) in todoItems"
@@ -98,14 +101,49 @@
 					</div>
 					<div class="card-actions justify-end">
 						<div class="flex flex-col">
-							<div class="badge mb-1" :class="getDueDateColor(todo.dueDate)">
+							<div
+								class="badge mb-1"
+								:class="getDueDateColor(todo.dueDate)"
+							>
 								{{ getCleanDate(todo.dueDate) }}
 							</div>
-							<div class="badge" :class="getImportance(todo.importance, false)">
+							<div
+								class="badge"
+								:class="getImportance(todo.importance, false)"
+							>
 								{{ getImportance(todo.importance, true) }}
 							</div>
 						</div>
-						<button class="btn btn-primary ml-auto">View</button>
+						<button
+							class="btn btn-primary ml-auto"
+							onclick="my_modal_3.showModal()"
+						>
+							View
+						</button>
+						<!-- You can open the modal using ID.showModal() method -->
+						<dialog
+							id="my_modal_3"
+							class="modal"
+						>
+							<div class="modal-box">
+								<form method="dialog">
+									<button
+										class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+									>
+										✕
+									</button>
+								</form>
+
+								<h3 class="text-lg font-bold">Hello!</h3>
+								<p class="py-4">Press ESC key or click on ✕ button to close</p>
+							</div>
+							<form
+								method="dialog"
+								class="modal-backdrop"
+							>
+								<button>close</button>
+							</form>
+						</dialog>
 					</div>
 				</div>
 			</div>
